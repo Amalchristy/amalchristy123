@@ -1,0 +1,19 @@
+
+--Query 1
+select Per.pname,kid.kname from person per inner join kid.kname ON per.pno=kid.pno
+where per.dno in (select dno from dept where dname='computer')
+and per.pno in (select prno from works_on where prno=(select prno from proj where pname='Payment Management'));
+
+
+--Query 2
+select distinct pro.*,per.*,emp.*,dep.* from person per 
+inner join employ emp on per.pno=emp.pno
+inner join works_on wrk on per.pno=wrk.pno
+inner join proj pro on wrk.prno=pro.prno
+inner join dept dep on per.dno=dep.dno
+group by pro.prno;
+
+--Query 3
+select per1.pname,per2.pname,emp.grade from person per1 
+inner join person per1 on per1.pno=per2.pnosup
+inner join employ emp on per2.pno=emp.pno;
